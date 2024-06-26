@@ -119,9 +119,9 @@ class Local extends AbstractAdapter
      */
     public function has($path)
     {
-        $location = $this->applyPathPrefix($path);
+        //$location = $this->applyPathPrefix($path);
 
-        return file_exists($location);
+        return file_exists($path);
     }
 
     /**
