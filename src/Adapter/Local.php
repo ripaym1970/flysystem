@@ -81,7 +81,7 @@ class Local extends AbstractAdapter
             throw new LogicException('The root path ' . $root . ' is not readable.');
         }
 
-        //$this->setPathPrefix($root);
+        $this->setPathPrefix($root);
         $this->writeFlags = $writeFlags;
         $this->linkHandling = $linkHandling;
     }
@@ -119,9 +119,9 @@ class Local extends AbstractAdapter
      */
     public function has($path)
     {
-        //$location = $this->applyPathPrefix($path);
+        $location = $this->applyPathPrefix($path);
 
-        return file_exists($path);
+        return file_exists($location);
     }
 
     /**

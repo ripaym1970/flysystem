@@ -387,6 +387,7 @@ class Filesystem implements FilesystemInterface
     public function assertPresent($path)
     {
         if ($this->config->get('disable_asserts', false) === false && ! $this->has($path)) {
+            // оновлення від 01.07.2024
             throw new FileNotFoundException($path);
         }
     }
