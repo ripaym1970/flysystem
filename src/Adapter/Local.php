@@ -81,7 +81,7 @@ class Local extends AbstractAdapter
             throw new LogicException('The root path ' . $root . ' is not readable.');
         }
 
-        $this->setPathPrefix($root);
+        $this->setPathPrefix('/');
         $this->writeFlags = $writeFlags;
         $this->linkHandling = $linkHandling;
     }
