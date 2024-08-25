@@ -73,15 +73,19 @@ class Local extends AbstractAdapter
      */
     public function __construct($root, $writeFlags = LOCK_EX, $linkHandling = self::DISALLOW_LINKS, array $permissions = [])
     {
-        $root = is_link($root) ? realpath($root) : $root;
         $this->permissionMap = array_replace_recursive(static::$permissions, $permissions);
+
+        $rootOld = $root;
+        $root = is_link($root) ? realpath($root) : $root;
         $this->ensureDirectory($root);
 
         if ( ! is_dir($root) || ! is_readable($root)) {
             throw new LogicException('The root path ' . $root . ' is not readable.');
         }
 
-        $this->setPathPrefix('/');
+        $this->setPathPrefix($root);
+        throw new LogicException('$rootOld=' . $rootOld . '       $root=' . $root);
+
         $this->writeFlags = $writeFlags;
         $this->linkHandling = $linkHandling;
     }
