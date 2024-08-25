@@ -51,16 +51,6 @@ class Filesystem implements FilesystemInterface
     /**
      * @inheritdoc
      */
-    public function has($path)
-    {
-        $path = Util::normalizePath($path);
-
-        return strlen($path) === 0 ? false : (bool) $this->getAdapter()->has($path);
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function write($path, $contents, array $config = [])
     {
         $path = Util::normalizePath($path);
@@ -230,17 +220,6 @@ class Filesystem implements FilesystemInterface
     /**
      * @inheritdoc
      */
-    public function delete($path)
-    {
-        $path = Util::normalizePath($path);
-        $this->assertPresent($path);
-
-        return $this->getAdapter()->delete($path);
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function deleteDir($dirname)
     {
         $dirname = Util::normalizePath($dirname);
@@ -376,23 +355,6 @@ class Filesystem implements FilesystemInterface
     }
 
     /**
-     * Assert a file is present.
-     *
-     * @param string $path path to file
-     *
-     * @throws FileNotFoundException
-     *
-     * @return void
-     */
-    public function assertPresent($path)
-    {
-        if ($this->config->get('disable_asserts', false) === false && ! $this->has($path)) {
-            // оновлення від 01.07.2024
-            throw new FileNotFoundException($path);
-        }
-    }
-
-    /**
      * Assert a file is absent.
      *
      * @param string $path path to file
@@ -406,5 +368,43 @@ class Filesystem implements FilesystemInterface
         if ($this->config->get('disable_asserts', false) === false && $this->has($path)) {
             throw new FileExistsException($path);
         }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function delete($path)
+    {
+        $path = Util::normalizePath($path);
+        $this->assertPresent($path);
+
+        return $this->getAdapter()->delete($path);
+    }
+
+    public function assertPresent($path)
+    {
+        if ($this->config->get('disable_asserts', false) === false && ! $this->has($path)) {
+            // оновлення від 01.07.2024
+            throw new FileNotFoundException($path);
+        }
+    }
+
+    public function has($path)
+    {
+        // Тут получается неправильный путь!
+        $path = Util::normalizePath($path);
+
+        //return strlen($path) === 0 ? false : (bool) $this->getAdapter()->has($path);
+
+        if (strlen($path) === 0) {
+            return false;
+        }
+
+        $res = (bool)$this->getAdapter()->has($path);
+        if ($res) {
+            return true;
+        }
+
+        throw new FileNotFoundException('$path=' . $path);
     }
 }
