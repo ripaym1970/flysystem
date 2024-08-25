@@ -7,6 +7,7 @@ use FilesystemIterator;
 use finfo as Finfo;
 use League\Flysystem\Config;
 use League\Flysystem\Exception;
+use League\Flysystem\FileNotFoundException;
 use League\Flysystem\NotSupportedException;
 use League\Flysystem\UnreadableFileException;
 use League\Flysystem\Util;
@@ -124,6 +125,8 @@ class Local extends AbstractAdapter
     public function has($path)
     {
         $location = $this->applyPathPrefix($path);
+
+        throw new FileNotFoundException('$location=' . $location);
 
         return file_exists($location);
     }
