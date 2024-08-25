@@ -124,8 +124,9 @@ class Local extends AbstractAdapter
      */
     public function has($path)
     {
+        // TODO: Сюда передается правильный путь, а applyPathPrefix() его портит!
         //$location = $this->applyPathPrefix($path);
-        $location = $path;
+        $location = '/' . $path;
 
         //throw new FileNotFoundException('$location=' . $location);
 
