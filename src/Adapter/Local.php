@@ -75,7 +75,7 @@ class Local extends AbstractAdapter
     {
         $this->permissionMap = array_replace_recursive(static::$permissions, $permissions);
 
-        $rootOld = $root;
+        //$rootOld = $root;
         $root = is_link($root) ? realpath($root) : $root;
         $this->ensureDirectory($root);
 
@@ -84,7 +84,7 @@ class Local extends AbstractAdapter
         }
 
         $this->setPathPrefix($root);
-        throw new LogicException('$rootOld=' . $rootOld . '       $root=' . $root);
+        //throw new LogicException('$rootOld=' . $rootOld . '       $root=' . $root);
 
         $this->writeFlags = $writeFlags;
         $this->linkHandling = $linkHandling;
