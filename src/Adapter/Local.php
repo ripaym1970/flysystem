@@ -128,7 +128,7 @@ class Local extends AbstractAdapter
         $location = $this->applyPathPrefix($path);
         //$location = '/' . $path;
 
-        throw new FileNotFoundException('$location=' . $location);
+        throw new FileNotFoundException('getPathPrefix=' . $this->getPathPrefix() . '         $location=' . $location);
 
         return true; //file_exists($location);
     }
