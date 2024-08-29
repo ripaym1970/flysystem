@@ -126,11 +126,11 @@ class Local extends AbstractAdapter
     {
         // TODO: Сюда передается правильный путь, а applyPathPrefix() его портит!
         //$location = $this->applyPathPrefix($path);
-        //$location = '/' . $path;
+        $location = '/' . $path;
 
         //throw new FileNotFoundException('getPathPrefix=' . $this->getPathPrefix() . '         $location=' . $location);
 
-        return true; //file_exists($location);
+        return file_exists($location);
     }
 
     /**
