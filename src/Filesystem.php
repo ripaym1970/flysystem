@@ -4,6 +4,7 @@ namespace League\Flysystem;
 
 use InvalidArgumentException;
 use League\Flysystem\Adapter\CanOverwriteFiles;
+use League\Flysystem\Adapter\Local;
 use League\Flysystem\Plugin\PluggableTrait;
 use League\Flysystem\Util\ContentListingFormatter;
 
@@ -22,7 +23,7 @@ class Filesystem implements FilesystemInterface
     use ConfigAwareTrait;
 
     /**
-     * @var AdapterInterface
+     * @var AdapterInterface|Local
      */
     protected $adapter;
 
