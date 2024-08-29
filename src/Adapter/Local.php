@@ -130,7 +130,7 @@ class Local extends AbstractAdapter
 
         //throw new FileNotFoundException('$location=' . $location);
 
-        return file_exists($location);
+        return true; //file_exists($location);
     }
 
     /**
